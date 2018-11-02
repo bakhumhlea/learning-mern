@@ -94,7 +94,7 @@ router.get('/all', (req, res) => {
 // @desc    Create and Edit user profile
 // @access  Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  console.log(req);
+  //console.log(req);
   const {errors, isValid} = validationProfileInput(req.body);
 
   // Check Validation
