@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import classnames from 'classnames';
+//import { withRouter } from 'react-router-dom';
+import TextFieldGroup from '../commons/TextFieldGroup';
+//import classnames from 'classnames';
 import { connect } from 'react-redux'; // use to connect Redux to our component
 import { registerUser } from '../../actions/authActions';
 
@@ -52,51 +53,38 @@ class Register extends Component {
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">Create your DevConnector account</p>
               <form noValidate onSubmit={(e)=>this.onSubmit(e)}>
-                <div className="form-group">
-                  <input 
-                  type="text" 
-                  className={classnames('form-control form-control-lg', {
-                    'is-invalid': errors.name
-                  })}
-                  placeholder="Name" 
+                <TextFieldGroup 
+                  placeholder="Name"
                   name="name"
                   value={this.state.name}
-                  onChange={(e)=>this.onChange(e)}/>
-                  {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
-                </div>
-                <div className="form-group">
-                  <input type="email" 
-                  className={classnames('form-control form-control-lg', {
-                    'is-invalid': errors.email
-                  })} placeholder="Email Address" 
+                  onChange={(e)=>this.onChange(e)}
+                  error={errors.name}
+                />
+                <TextFieldGroup 
+                  placeholder="Email Address"
                   name="email"
+                  type="email"
                   value={this.state.email}
-                  onChange={(e)=>this.onChange(e)}/>
-                  {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
-                  <small className="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
-                </div>
-                <div className="form-group">
-                  <input 
-                  type="password" 
-                  className={classnames('form-control form-control-lg', {
-                    'is-invalid': errors.password
-                  })} placeholder="Password" 
+                  onChange={(e)=>this.onChange(e)}
+                  error={errors.email}
+                  info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
+                />
+                <TextFieldGroup 
+                  placeholder="Password"
                   name="password"
+                  type="password"
                   value={this.state.password}
-                  onChange={(e)=>this.onChange(e)}/>
-                  {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
-                </div>
-                <div className="form-group">
-                  <input 
-                  type="password" 
-                  className={classnames('form-control form-control-lg', {
-                    'is-invalid': errors.password2
-                  })} placeholder="Confirm Password" 
+                  onChange={(e)=>this.onChange(e)}
+                  error={errors.password}
+                />
+                <TextFieldGroup 
+                  placeholder="Confirm Password"
                   name="password2"
+                  type="password"
                   value={this.state.password2}
-                  onChange={(e)=>this.onChange(e)}/>
-                  {errors.password2 && (<div className="invalid-feedback">{errors.password2}</div>)}
-                </div>
+                  onChange={(e)=>this.onChange(e)}
+                  error={errors.password}
+                />
                 <input
                   type="submit" 
                   className="btn btn-info btn-block mt-4" 
@@ -124,7 +112,5 @@ const mapStateToProps = (state) => ({
 // const mapDispatchToProps = (dispatch) => ({
 //   registerUser: (userData, history) => dispatch(userData, history)
 // });
-
-console.log(registerUser);
 
 export default connect(mapStateToProps, { registerUser } )(Register);

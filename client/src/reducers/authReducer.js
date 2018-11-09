@@ -10,7 +10,6 @@ export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
     case SET_CURRENT_USER:
       return {
-        ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
       }
