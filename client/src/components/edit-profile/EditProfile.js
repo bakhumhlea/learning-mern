@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../commons/TextFieldGroup';
 import TextAreaFieldGroup from '../commons/TextAreaFieldGroup';
@@ -79,6 +80,7 @@ class EditProfile extends Component {
         twitter: profile.twitter,
         facebook: profile.facebook,
         linkedin: profile.linkedin,
+        instagram: profile.instagram,
         youtube: profile.youtube
         });
 
@@ -181,6 +183,7 @@ class EditProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
+              <Link to="/dashboard" className="btn btn-dark">Go Back</Link>
               <h1 className="display-4 text-center">
                 Edit Profile
               </h1>

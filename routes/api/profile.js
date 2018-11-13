@@ -35,7 +35,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
     .catch(err => res.status(404).json(err));
 });
 
-// @route   GET api/profile/handle/:handle
+// @route   GET api/profile/:handle
 // @desc    Get profile handle
 // @access  Public
 router.get('/handle/:handle', (req, res)=> {
