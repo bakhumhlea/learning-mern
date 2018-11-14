@@ -7,7 +7,8 @@ import {
   GET_ERRORS, 
   CLEAR_CURRENT_PROFILE,
   SET_CURRENT_USER,
-  GET_PROFILES
+  GET_PROFILES,
+  PAGE_NOT_FOUND
 } from './types';
 
 // Get all profile
@@ -47,7 +48,7 @@ export const getCurrentProfile = () => dispatch => {
         payload: {}
       })
     }
-    );
+  );
 };
 
 // Get profile by handle
@@ -64,10 +65,30 @@ export const getProfileByHandle = (handle) => dispatch => {
     .catch(err => {
       dispatch({
         type: GET_PROFILE,
-        payload: {}
-      })
+        payload: null
+      });
     }
-    );
+  );
+};
+
+// Get profile by Id
+export const getProfileById = (id) => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get(`/api/profile/user/${id}`)
+    .then(res => 
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch({
+        type: GET_PROFILE,
+        payload: null
+      });
+    }
+  );
 };
 
 
@@ -183,4 +204,12 @@ export const clearCurrentProfile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE
   }
+}
+
+// Re-Routing
+export const pageNotFoundHandle = (route) => dispatch => {
+  dispatch({
+    type: PAGE_NOT_FOUND,
+    payload: route
+  });
 }

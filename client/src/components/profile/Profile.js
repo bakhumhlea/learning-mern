@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getProfileByHandle } from '../../actions/profileActions';
+import { getProfileByHandle, pageNotFoundHandle, getProfileById } from '../../actions/profileActions';
 
 import ProfileHeader from './ProfileHeader';
 import ProfileAbout from './ProfileAbout';
@@ -12,30 +12,41 @@ import Spinner from '../commons/Spinner';
 
 class Profile extends Component {
   componentDidMount() {
-    console.log(this.props.match.params.handle);
-    if(this.props.match.params.handle) {
+    if (this.props.match.params.handle) {
+      console.log(this.props.match.params.handle);
       this.props.getProfileByHandle(this.props.match.params.handle);
     }
+    if (this.props.match.params.user_id) {
+      this.props.getProfileById(this.props.match.params.user_id)
+    }
   }
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.profile.profile === null && this.props.profile.loading) {
+      this.props.pageNotFoundHandle("/profiles");
+      this.props.history.push('/not-found');
+    }
+  }
+
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
 
     if(profile === null || loading) {
-      profileContent = <Spinner />
+      profileContent = (<Spinner />);
     } else {
       profileContent = (
         <div>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-6 mb-3">
               <Link to="/profiles" className="btn btn-dark">Back to Profiles</Link>
             </div>
-            <div className="col-md-6 mb-3"></div>
           </div>
           <ProfileHeader profile={profile}/>
           <ProfileAbout profile={profile} />
           <ProfileCreds experience={profile.experience} education={profile.education}/>
-          <ProfileGithub profile={profile} />
+          {profile.githubusername ? 
+            (<ProfileGithub username={profile.githubusername}/>)
+            : null}
         </div>
       );
     }
@@ -55,11 +66,12 @@ class Profile extends Component {
 
 Profile.propTypes = {
   profile: PropTypes.object.isRequired,
-  getProfileByHandle: PropTypes.func.isRequired
+  getProfileByHandle: PropTypes.func.isRequired,
+  getProfileById: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getProfileByHandle })(Profile);
+export default connect(mapStateToProps, { getProfileByHandle, getProfileById, pageNotFoundHandle })(Profile);

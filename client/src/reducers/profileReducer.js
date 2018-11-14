@@ -1,9 +1,10 @@
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_PROFILES } from '../actions/types';
+import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_PROFILES, PAGE_NOT_FOUND } from '../actions/types';
 
 const INITIAL_STATE = {
   profile: null,
   profiles: null,
-  loading: false
+  loading: false,
+  route: null,
 }
 
 export default function(state = INITIAL_STATE, action) {
@@ -30,6 +31,11 @@ export default function(state = INITIAL_STATE, action) {
        ...state,
        profile: null
      };
+    case PAGE_NOT_FOUND:
+     return {
+       ...state,
+       route: action.payload
+     }
     default:
       return state;
   }

@@ -26,7 +26,7 @@ class ProfileHeader extends Component {
                 )}
                 {isEmpty(profile.social && profile.social.twitter) ? null : (
                   <a className="text-white p-2" href={profile.social.twitter}>
-                  <i class="fab fa-twitter fa-2x"></i>
+                  <i className="fab fa-twitter fa-2x"></i>
                 </a>
                 )}
                 {isEmpty(profile.social && profile.social.facebook) ? null : (

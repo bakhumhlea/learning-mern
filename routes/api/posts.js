@@ -21,7 +21,7 @@ router.get('/test', (req, res) => res.json({msg: "User Posts"}));
 router.get('/', (req, res) => {
   Post.find()
     .sort({ date: -1 })
-    .then(posts => res.json({posts}))
+    .then(posts => res.json(posts))
     .catch(err => res.status(404).json(err));
 });
 

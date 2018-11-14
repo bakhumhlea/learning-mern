@@ -39,7 +39,7 @@ class Education extends Component {
       if (this.props.education.length === 0) {
         return (
           <div>
-            <p className="text-muted">You have not yet provide your education information. <span><Link to="/add-education">Add education</Link></span></p>
+            <p className="text-muted">You have not yet provide your education information. <span><Link to="/add-education">Add Education</Link></span></p>
           </div>
         );
       } else {
