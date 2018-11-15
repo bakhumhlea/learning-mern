@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
   Post.findById(req.params.id)
     .then(post => {
       
-      return res.json({post});
+      return res.json(post);
     })
     .catch(err => res.status(404).json({noPostFound: 'There is no post you\'re looking for' }));
 });
